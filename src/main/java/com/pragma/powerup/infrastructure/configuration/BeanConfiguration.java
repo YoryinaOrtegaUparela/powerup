@@ -11,6 +11,7 @@ import com.pragma.powerup.infrastructure.out.jpa.adapter.UsuarioPersistenceAdapt
 import com.pragma.powerup.infrastructure.out.jpa.mapper.UsuarioEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.repository.RolRepository;
 import com.pragma.powerup.infrastructure.out.jpa.repository.UsuarioRepository;
+import com.pragma.powerup.domain.spi.SecurityPasswordPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ public class BeanConfiguration {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioEntityMapper usuarioEntityMapper;
     private final RolRepository rolRepository;
+
 
     @Bean
     public UsuarioPersistencePort usuarioPersistencePort(){
