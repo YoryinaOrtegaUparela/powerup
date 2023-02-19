@@ -17,7 +17,7 @@ public class UsuarioRequestDto {
     private String apellido;
 
     @NotNull(message = "El atributo documento de Identidad es obligatorio")
-    private Long documentoIdentidad;
+    private String documentoIdentidad;
 
     @NotNull(message = "El atributo celular es obligatorio")
     private String celular;
@@ -34,6 +34,7 @@ public class UsuarioRequestDto {
 
     /**
      * Método para validar que la estructura de un correo se encuentra bien definida
+     *
      * @param correo
      * @return correo validado correctamente
      */
@@ -49,16 +50,58 @@ public class UsuarioRequestDto {
         }
     }
 
+    private boolean celularEsValido(String celular) {
+        if (estructuraCelularEsCorrecta(celular) && tamanoCelularEsCorrecto(celular)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Método para validar que el telefono celular cuente con máximo 13 caracteres
+     *
      * @param celular
      * @return celular validado
      */
-    private String validarTamanoCelular(String celular) {
+    private boolean tamanoCelularEsCorrecto(String celular) {
         if (celular.length() > 13) {
-            throw new ValidationRequestException("número de caracteres mayor a 13");
+            throw new ValidationRequestException("El número de caracteres del atributo celular es mayor a 13");
         }
-        return celular;
+        return true;
+    }
+
+    /**
+     * Método para validar que el atributo celular sea unicamente numerico y pueda contener el símbolo +
+     *
+     * @param celular
+     * @return celular
+     */
+    private boolean estructuraCelularEsCorrecta(String celular) {
+        Pattern pattern = Pattern
+                .compile("^\\+?\\d+$");
+        Matcher mather = pattern.matcher(celular);
+        if (mather.find()) {
+            return true;
+        } else {
+            throw new ValidationRequestException("El atributo celular debe ser numerico y puede iniciar con +");
+        }
+    }
+
+    /**
+     * Método para verificar que el documento de identidad sea solo numerico
+     * @param documentoIdentidad
+     * @return documentoIdentidad
+     */
+    private String verificarDocumentoIdentidad(String documentoIdentidad) {
+        Pattern pattern = Pattern
+                .compile("^\\d+$");
+        Matcher mather = pattern.matcher(documentoIdentidad);
+        if (mather.find()) {
+            return documentoIdentidad;
+        } else {
+            throw new ValidationRequestException("El atributo documentoIdentidad debe ser numerico");
+        }
     }
 
     public String getCorreo() {
@@ -74,7 +117,10 @@ public class UsuarioRequestDto {
     }
 
     public void setCelular(String celular) {
-        this.celular = validarTamanoCelular(celular);
+        if (celularEsValido(celular)) {
+            this.celular = celular;
+        }
+
     }
 
     public String getNombre() {
@@ -93,12 +139,12 @@ public class UsuarioRequestDto {
         this.apellido = apellido;
     }
 
-    public Long getDocumentoIdentidad() {
+    public String getDocumentoIdentidad() {
         return documentoIdentidad;
     }
 
-    public void setDocumentoIdentidad(Long documentoIdentidad) {
-        this.documentoIdentidad = documentoIdentidad;
+    public void setDocumentoIdentidad(String documentoIdentidad) {
+        this.documentoIdentidad = verificarDocumentoIdentidad(documentoIdentidad);
     }
 
     public String getClave() {

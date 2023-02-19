@@ -1,6 +1,8 @@
 package com.pragma.powerup.infrastructure.security;
 
+import com.pragma.powerup.domain.api.SecurityPasswordServicePort;
 import com.pragma.powerup.domain.spi.SecurityPasswordPort;
+import com.pragma.powerup.domain.usecase.EncriptarUseCase;
 import com.pragma.powerup.infrastructure.security.impl.BcryptSecurityPasswordPortImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +25,26 @@ public class WebSecurityConfiguration {
     }
 
 
+    /**
+     * Inyeccion del SPI correspondiente
+     *
+     * @return
+     */
     @Bean
     public SecurityPasswordPort securityPassword() {
         return new BcryptSecurityPasswordPortImpl(encoder());
     }
+
+    /**
+     * Inyeccion de API correspondiente
+     *
+     * @return
+     */
+    @Bean
+    public SecurityPasswordServicePort securityPasswordServicePort() {
+        return new EncriptarUseCase(securityPassword());
+    }
+
     /*
     Configuracion de Seguridad Http
      */
