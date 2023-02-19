@@ -50,6 +50,11 @@ public class UsuarioRequestDto {
         }
     }
 
+    /**
+     * Validar si un numero de celular es valido para el dominio de la Aplicacion
+     * @param celular
+     * @return
+     */
     private boolean celularEsValido(String celular) {
         if (estructuraCelularEsCorrecta(celular) && tamanoCelularEsCorrecto(celular)) {
             return true;
