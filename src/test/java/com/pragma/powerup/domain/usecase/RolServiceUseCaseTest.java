@@ -1,8 +1,7 @@
 package com.pragma.powerup.domain.usecase;
 
-import com.pragma.powerup.domain.exception.UserDataNotFoundException;
 import com.pragma.powerup.domain.spi.RolPersistencePort;
-import com.pragma.powerup.infrastructure.exception.NoValidRolException;
+import com.pragma.powerup.domain.exception.NoValidRolException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

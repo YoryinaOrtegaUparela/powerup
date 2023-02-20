@@ -2,7 +2,7 @@ package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.api.RolServicePort;
 import com.pragma.powerup.domain.spi.RolPersistencePort;
-import com.pragma.powerup.infrastructure.exception.NoValidRolException;
+import com.pragma.powerup.domain.exception.NoValidRolException;
 
 public class RolServiceUseCase implements RolServicePort {
 

@@ -1,7 +1,7 @@
 package com.pragma.powerup.infrastructure.out.jpa.adapter;
 
 import com.pragma.powerup.domain.spi.RolPersistencePort;
-import com.pragma.powerup.infrastructure.exception.NoValidRolException;
+import com.pragma.powerup.domain.exception.NoValidRolException;
 import com.pragma.powerup.infrastructure.out.jpa.entity.RolEntity;
 import com.pragma.powerup.infrastructure.out.jpa.repository.RolRepository;
 

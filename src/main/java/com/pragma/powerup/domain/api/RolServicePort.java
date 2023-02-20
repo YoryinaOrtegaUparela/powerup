@@ -1,6 +1,6 @@
 package com.pragma.powerup.domain.api;
 
-import com.pragma.powerup.infrastructure.exception.NoValidRolException;
+import com.pragma.powerup.domain.exception.NoValidRolException;
 
 public interface RolServicePort {
 
