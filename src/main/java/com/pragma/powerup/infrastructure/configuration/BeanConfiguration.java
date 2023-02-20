@@ -22,25 +22,25 @@ public class BeanConfiguration {
     private final UsuarioRepository usuarioRepository;
     private final UsuarioEntityMapper usuarioEntityMapper;
     private final RolRepository rolRepository;
-
+    private final SecurityPasswordPort securityPasswordPort;
 
     @Bean
-    public UsuarioPersistencePort usuarioPersistencePort(){
+    public UsuarioPersistencePort usuarioPersistencePort() {
         return new UsuarioPersistenceAdapter(usuarioEntityMapper, usuarioRepository);
     }
 
     @Bean
-    public UsuarioServicePort usuarioServicePort(){
-        return new UsuarioServiceUseCase(usuarioPersistencePort());
+    public UsuarioServicePort usuarioServicePort() {
+        return new UsuarioServiceUseCase(usuarioPersistencePort(), securityPasswordPort, rolServicePort());
     }
 
     @Bean
-    public RolPersistencePort rolPersistencePort(){
+    public RolPersistencePort rolPersistencePort() {
         return new RolPersistenceAdapter(rolRepository);
     }
 
     @Bean
-    public RolServicePort rolServicePort(){
+    public RolServicePort rolServicePort() {
         return new RolServiceUseCase(rolPersistencePort());
     }
 

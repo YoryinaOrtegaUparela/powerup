@@ -1,8 +1,9 @@
 package com.pragma.powerup.infrastructure.input.rest;
 
 import com.pragma.powerup.application.dto.request.UsuarioRequestDto;
+import com.pragma.powerup.application.dto.response.UsuarioResponseDto;
 import com.pragma.powerup.application.handler.UsuarioHandler;
-import com.pragma.powerup.domain.spi.SecurityPasswordPort;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,12 @@ public class UsuarioRestController {
         this.usuarioHandler = usuarioHandler;
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Void> crearUsuario(@Valid @RequestBody UsuarioRequestDto usuarioRequestDto) {
-        usuarioHandler.guardarUsuario(usuarioRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @Operation(description = "Permitir la Creacion de un usuario dentro del sistema")
+    @PostMapping("/crearUsuario")
+    public ResponseEntity<UsuarioResponseDto> crearUsuario(@RequestBody UsuarioRequestDto usuarioRequestDto) {
+        UsuarioResponseDto usuarioResponseDto = usuarioHandler.guardarUsuario(usuarioRequestDto);
+
+        return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.CREATED);
+
     }
 }

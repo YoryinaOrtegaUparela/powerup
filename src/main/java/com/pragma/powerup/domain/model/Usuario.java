@@ -6,12 +6,12 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String celular;
-    private Long documentoIdentidad;
+    private String documentoIdentidad;
     private String correo;
     private String clave;
     private Long idRol;
 
-    public Usuario(Long id, String nombre, String apellido, String celular, Long documentoIdentidad, String correo, String clave, Long idRol) {
+    public Usuario(Long id, String nombre, String apellido, String celular, String documentoIdentidad, String correo, String clave, Long idRol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -57,11 +57,11 @@ public class Usuario {
         this.celular = celular;
     }
 
-    public Long getDocumentoIdentidad() {
+    public String getDocumentoIdentidad() {
         return documentoIdentidad;
     }
 
-    public void setDocumentoIdentidad(Long documentoIdentidad) {
+    public void setDocumentoIdentidad(String documentoIdentidad) {
         this.documentoIdentidad = documentoIdentidad;
     }
 

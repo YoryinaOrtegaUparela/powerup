@@ -7,6 +7,6 @@ Contrato que define la creación de usuarios
  */
 public interface UsuarioServicePort {
 
-    public void crearUsuario(Usuario nuevoUsuario);
+    public Usuario crearUsuario(Usuario nuevoUsuario);
 
 }

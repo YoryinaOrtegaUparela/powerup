@@ -19,12 +19,16 @@ public class UsuarioPersistenceAdapter implements UsuarioPersistencePort {
     }
 
     @Override
-    public void guardarUsuario(Usuario usuarioNuevo) {
-       UsuarioEntity usuarioConvertido = usuarioEntityMapper.usuarioToUsuarioEntity(usuarioNuevo);
-       usuarioRepository.save(usuarioConvertido);
+    public Usuario guardarUsuario(Usuario usuarioNuevo) {
+
+        UsuarioEntity usuarioConvertido = usuarioEntityMapper.usuarioToUsuarioEntity(usuarioNuevo);
+
+        UsuarioEntity usuarioCreado = usuarioRepository.save(usuarioConvertido);
+        usuarioNuevo.setId(usuarioCreado.getId());
+
+        return usuarioNuevo;
+
     }
-
-
 
 
 }

@@ -1,10 +1,8 @@
 package com.pragma.powerup.infrastructure.exceptionhandler;
 
-import com.fasterxml.jackson.core.JsonLocation;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.pragma.powerup.infrastructure.exception.NoDataFoundException;
+import com.pragma.powerup.domain.exception.UserDataNotFoundException;
 import com.pragma.powerup.infrastructure.exception.NoValidRolException;
-import com.pragma.powerup.infrastructure.exception.ValidationRequestException;
+import com.pragma.powerup.domain.exception.UserNotValidStructureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,26 +19,26 @@ public class ControllerAdvisor {
     private static final String STATUS_CODE = "STATUS_CODE";
 
 
-    /**
-     * Manejador de excepcion cuando no se encuentre la información solicitada
-     *
-     * @param noDataFoundException
-     * @return
-     */
-    @ExceptionHandler(NoDataFoundException.class)
-    public ResponseEntity<Map<String, String>> handleNoDataFoundException(
-            NoDataFoundException noDataFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(ERROR, ExceptionResponse.NO_DATA_FOUND.getMessage()));
-    }
 
 
-    @ExceptionHandler(ValidationRequestException.class)
+    @ExceptionHandler(UserNotValidStructureException.class)
     public ResponseEntity<Map<String, String>> handleValidationRequestException(
-            ValidationRequestException validationRequestException) {
+            UserNotValidStructureException userNotValidStructureException) {
 
         Map<String, String> stringStringMap = new HashMap<String, String>();
-        stringStringMap.put(ERROR, validationRequestException.getMessage());
+        stringStringMap.put(ERROR, userNotValidStructureException.getMessage());
+        stringStringMap.put(STATUS_CODE, HttpStatus.BAD_REQUEST.getReasonPhrase());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(stringStringMap);
+    }
+
+    @ExceptionHandler(UserDataNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleValidationRequestException(
+            UserDataNotFoundException userDataNotFoundException) {
+
+        Map<String, String> stringStringMap = new HashMap<String, String>();
+        stringStringMap.put(ERROR, userDataNotFoundException.getMessage());
         stringStringMap.put(STATUS_CODE, HttpStatus.BAD_REQUEST.getReasonPhrase());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

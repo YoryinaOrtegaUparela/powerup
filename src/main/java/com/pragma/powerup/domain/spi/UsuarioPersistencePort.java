@@ -6,5 +6,5 @@ Contrato que gestiona la persistencia de los usuarios
  */
 public interface UsuarioPersistencePort {
 
-    public void guardarUsuario(Usuario usuarioNuevo);
+    public Usuario guardarUsuario(Usuario usuarioNuevo);
 }
