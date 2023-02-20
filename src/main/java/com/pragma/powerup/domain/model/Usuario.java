@@ -9,9 +9,11 @@ public class Usuario {
     private String documentoIdentidad;
     private String correo;
     private String clave;
-    private Long idRol;
 
-    public Usuario(Long id, String nombre, String apellido, String celular, String documentoIdentidad, String correo, String clave, Long idRol) {
+    private Long idRol;
+    private Rol rol;
+
+    public Usuario(Long id, String nombre, String apellido, String celular, String documentoIdentidad, String correo, String clave, Long idRol, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -20,6 +22,7 @@ public class Usuario {
         this.correo = correo;
         this.clave = clave;
         this.idRol = idRol;
+        this.rol = rol;
     }
 
     public Usuario() {
@@ -79,6 +82,14 @@ public class Usuario {
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public Long getIdRol() {

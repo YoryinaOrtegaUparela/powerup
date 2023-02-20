@@ -5,4 +5,6 @@ import com.pragma.powerup.application.dto.response.UsuarioResponseDto;
 
 public interface UsuarioHandler {
     UsuarioResponseDto guardarUsuario(UsuarioRequestDto usuarioRequestDto);
+
+    UsuarioResponseDto recuperarUsuarioPorId(Long idUsuario);
 }

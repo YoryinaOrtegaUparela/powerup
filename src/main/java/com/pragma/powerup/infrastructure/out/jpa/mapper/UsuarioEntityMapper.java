@@ -16,4 +16,6 @@ public interface UsuarioEntityMapper {
      */
     UsuarioEntity usuarioToUsuarioEntity(Usuario usuario);
 
+    Usuario  usuarioEntityToUsuario(UsuarioEntity usuarioEntity);
+
 }

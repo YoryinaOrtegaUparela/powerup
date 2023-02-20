@@ -8,6 +8,7 @@ import com.pragma.powerup.domain.usecase.RolServiceUseCase;
 import com.pragma.powerup.domain.usecase.UsuarioServiceUseCase;
 import com.pragma.powerup.infrastructure.out.jpa.adapter.RolPersistenceAdapter;
 import com.pragma.powerup.infrastructure.out.jpa.adapter.UsuarioPersistenceAdapter;
+import com.pragma.powerup.infrastructure.out.jpa.mapper.RolEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.mapper.UsuarioEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.repository.RolRepository;
 import com.pragma.powerup.infrastructure.out.jpa.repository.UsuarioRepository;

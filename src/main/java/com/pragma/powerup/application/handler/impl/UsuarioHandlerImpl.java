@@ -30,8 +30,16 @@ public class UsuarioHandlerImpl implements UsuarioHandler {
         Usuario usuario = usuarioRequestMapper.usuarioRequestDtoToUsuario(usuarioRequestDto);
         //Mando al Dominio a crear  con las respectivas validaciones necesarias
         Usuario usuarioCreado = usuarioServicePort.crearUsuario(usuario);
+
         UsuarioResponseDto usuarioResponseDto = usuarioResponseMapper.usuarioToUsuarioResponseDto(usuarioCreado);
         return usuarioResponseDto;
+    }
+
+    @Override
+    public UsuarioResponseDto recuperarUsuarioPorId(Long idUsuario) {
+        Usuario usuario = usuarioServicePort.recuperarUsuarioPorId(idUsuario);
+       return usuarioResponseMapper.usuarioToUsuarioResponseDto(usuario);
+
     }
 
 

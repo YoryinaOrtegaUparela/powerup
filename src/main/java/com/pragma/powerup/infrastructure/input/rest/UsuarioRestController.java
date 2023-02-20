@@ -28,4 +28,13 @@ public class UsuarioRestController {
         return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.CREATED);
 
     }
+
+    @Operation(description = "Retornar dato de id , rol y nombre para un Usuario ")
+    @GetMapping("/validarRolUsuario/{usuarioId}")
+    public ResponseEntity<UsuarioResponseDto> validarRolUsuario(@PathVariable("usuarioId") Long usuarioId) {
+        UsuarioResponseDto usuarioResponseDto = usuarioHandler.recuperarUsuarioPorId(usuarioId);
+
+        return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.OK);
+
+    }
 }

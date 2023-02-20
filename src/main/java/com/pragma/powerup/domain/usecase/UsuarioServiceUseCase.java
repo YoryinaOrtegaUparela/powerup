@@ -3,6 +3,7 @@ package com.pragma.powerup.domain.usecase;
 import com.pragma.powerup.domain.api.RolServicePort;
 import com.pragma.powerup.domain.api.UsuarioServicePort;
 import com.pragma.powerup.domain.helper.UsuarioDataValidator;
+import com.pragma.powerup.domain.model.Rol;
 import com.pragma.powerup.domain.model.Usuario;
 import com.pragma.powerup.domain.spi.SecurityPasswordPort;
 import com.pragma.powerup.domain.spi.UsuarioPersistencePort;
@@ -35,6 +36,17 @@ public class UsuarioServiceUseCase implements UsuarioServicePort {
         encriptarContrasenaUsuario(nuevoUsuario);
         //Persistir usuario
         Usuario usuario = usuarioPersistencePort.guardarUsuario(nuevoUsuario);
+        Rol rol = rolServicePort.recuperarRolPorIdRol(usuario.getIdRol());
+        usuario.setRol(rol);
+
+        return usuario;
+    }
+
+    @Override
+    public Usuario recuperarUsuarioPorId(Long idUsuario) {
+        Usuario usuario = usuarioPersistencePort.recuperarUsuarioPorId(idUsuario);
+        Rol rol = rolServicePort.recuperarRolPorIdRol(usuario.getIdRol());
+        usuario.setRol(rol);
         return usuario;
     }
 

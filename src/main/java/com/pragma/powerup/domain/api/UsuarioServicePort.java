@@ -9,4 +9,6 @@ public interface UsuarioServicePort {
 
     public Usuario crearUsuario(Usuario nuevoUsuario);
 
+    public Usuario recuperarUsuarioPorId(Long idUsuario);
+
 }
