@@ -18,8 +18,6 @@ public class ControllerAdvisor {
     private static final String STATUS_CODE = "STATUS_CODE";
 
 
-
-
     @ExceptionHandler(UserNotValidStructureException.class)
     public ResponseEntity<Map<String, String>> handleValidationRequestException(
             UserNotValidStructureException userNotValidStructureException) {

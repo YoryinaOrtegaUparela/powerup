@@ -10,7 +10,6 @@ public class RolEntity {
     @Id
     @Column(nullable = false)
     private Long id;
-
     private String codigo;
     private String nombre;
     private String descripcion;

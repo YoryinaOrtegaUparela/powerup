@@ -2,6 +2,7 @@ package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.api.RolServicePort;
 import com.pragma.powerup.domain.api.UsuarioServicePort;
+import com.pragma.powerup.domain.exception.NoValidRolException;
 import com.pragma.powerup.domain.helper.UsuarioDataValidator;
 import com.pragma.powerup.domain.model.Usuario;
 import com.pragma.powerup.domain.spi.SecurityPasswordPort;
@@ -30,7 +31,10 @@ public class UsuarioServiceUseCase implements UsuarioServicePort {
         //validar que los datos de un Usuario estan correctos
         UsuarioDataValidator.validarUsuario(nuevoUsuario);
         //Validar que sea un rol valido el que llega
-        rolServicePort.validateExistRol(nuevoUsuario.getIdRol());
+        boolean rolExiste = rolServicePort.validateExistRol(nuevoUsuario.getIdRol());
+        if (!rolExiste) {
+            throw new NoValidRolException("El IdRol " + nuevoUsuario.getIdRol() + " no existe.");
+        }
         //Encriptar la contraseña
         encriptarContrasenaUsuario(nuevoUsuario);
         //Persistir usuario

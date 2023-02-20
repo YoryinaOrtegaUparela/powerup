@@ -21,6 +21,7 @@ public class UsuarioRestController {
     }
 
     @Operation(description = "Permitir la Creacion de un usuario dentro del sistema")
+    @ResponseStatus(code = HttpStatus.CREATED)
     @PostMapping("/crearUsuario")
     public ResponseEntity<UsuarioResponseDto> crearUsuario(@RequestBody UsuarioRequestDto usuarioRequestDto) {
         UsuarioResponseDto usuarioResponseDto = usuarioHandler.guardarUsuario(usuarioRequestDto);

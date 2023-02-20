@@ -28,7 +28,7 @@ public class UsuarioHandlerImpl implements UsuarioHandler {
     public UsuarioResponseDto guardarUsuario(UsuarioRequestDto usuarioRequestDto) {
         //Mapeo
         Usuario usuario = usuarioRequestMapper.usuarioRequestDtoToUsuario(usuarioRequestDto);
-        //Mando al Dominio a crear  con las respectivas validaciones necesarias
+        //Mando al Dominio a crear con las validaciones necesarias
         Usuario usuarioCreado = usuarioServicePort.crearUsuario(usuario);
         UsuarioResponseDto usuarioResponseDto = usuarioResponseMapper.usuarioToUsuarioResponseDto(usuarioCreado);
         return usuarioResponseDto;
