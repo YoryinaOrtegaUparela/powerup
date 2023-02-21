@@ -24,8 +24,9 @@ public class RolPersistenceAdapter implements RolPersistencePort {
         Optional<RolEntity> rol = rolRepository.findById(id);
         if (rol.isPresent()) {
             return true;
+        }else{
+            return false;
         }
-        throw new NoValidRolException("El IdRol " + id + " no existe.");
 
     }
 

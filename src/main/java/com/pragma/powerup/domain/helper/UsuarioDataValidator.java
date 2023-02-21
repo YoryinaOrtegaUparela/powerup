@@ -36,7 +36,6 @@ public class UsuarioDataValidator {
         validarCorreo(usuario.getCorreo());
         celularEsValido(usuario.getCelular());
         validarDocumentoIdentidad(usuario.getDocumentoIdentidad());
-
     }
 
 
@@ -62,7 +61,6 @@ public class UsuarioDataValidator {
         } else if (isNull(usuario.getClave())) {
             throw new UserDataNotFoundException("El atributo clave es obligatorio");
         }
-
     }
 
     /**
@@ -91,9 +89,7 @@ public class UsuarioDataValidator {
     private static void celularEsValido(String celular) {
         validarEstructuraCelular(celular);
         validarTamanoCelular(celular);
-
     }
-
 
     /**
      * Método para validar que el telefono celular cuente con máximo 13 caracteres
@@ -105,7 +101,6 @@ public class UsuarioDataValidator {
         if (celular.length() > 13) {
             throw new UserNotValidStructureException("El número de caracteres del atributo celular es mayor a 13");
         }
-
     }
 
     /**

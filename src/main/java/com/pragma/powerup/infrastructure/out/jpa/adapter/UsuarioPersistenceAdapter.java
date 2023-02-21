@@ -27,6 +27,7 @@ public class UsuarioPersistenceAdapter implements UsuarioPersistencePort {
         UsuarioEntity usuarioConvertido = usuarioEntityMapper.usuarioToUsuarioEntity(usuarioNuevo);
 
         UsuarioEntity usuarioCreado = usuarioRepository.save(usuarioConvertido);
+
         usuarioNuevo.setId(usuarioCreado.getId());
 
         return usuarioNuevo;

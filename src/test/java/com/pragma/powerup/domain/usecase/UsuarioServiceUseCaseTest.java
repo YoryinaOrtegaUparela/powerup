@@ -1,6 +1,7 @@
 package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.api.RolServicePort;
+import com.pragma.powerup.domain.exception.NoValidRolException;
 import com.pragma.powerup.domain.exception.UserDataNotFoundException;
 import com.pragma.powerup.domain.exception.UserNotValidStructureException;
 import com.pragma.powerup.domain.model.Usuario;
@@ -45,6 +46,21 @@ class UsuarioServiceUseCaseTest {
         usuarioServiceUseCase.crearUsuario(nuevoUsuario);
         //Verificar guardado
         Mockito.verify(usuarioPersistencePort).guardarUsuario(nuevoUsuario);
+    }
+
+    @Test
+    void NodebecrearUsuarioPorqueElRolNoExiste() {
+        //GIVEN
+        Usuario nuevoUsuario = UsuarioDataTest.getUsuarioNuevo();
+        //WHENs
+        Mockito.when(rolServicePort.validateExistRol(Mockito.any())).thenThrow(NoValidRolException.class);
+        Mockito.when(securityPasswordPort.encriptarContrasena(Mockito.any())).thenReturn("#3$4#RARO");
+
+        //Verificar que lanza excepcion por estructura invalida
+        Assertions.assertThrows(NoValidRolException.class,
+                () ->  //Validar el guardarUsuario
+                        usuarioServiceUseCase.crearUsuario(nuevoUsuario));
+
     }
 
     @Test

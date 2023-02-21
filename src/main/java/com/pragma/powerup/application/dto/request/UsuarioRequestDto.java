@@ -10,18 +10,13 @@ public class UsuarioRequestDto {
 
     private String apellido;
 
-
     private String documentoIdentidad;
-
 
     private String celular;
 
-
     private String correo;
 
-
     private String clave;
-
 
     private Long idRol;
 
