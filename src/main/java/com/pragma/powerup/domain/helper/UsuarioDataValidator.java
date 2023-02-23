@@ -56,8 +56,6 @@ public class UsuarioDataValidator {
             throw new UserDataNotFoundException("El atributo celular es obligatorio");
         } else if (isNull(usuario.getCorreo())) {
             throw new UserDataNotFoundException("El atributo correo es obligatorio");
-        } else if (isNull(usuario.getIdRol())) {
-            throw new UserDataNotFoundException("El atributo idRol es obligatorio");
         } else if (isNull(usuario.getClave())) {
             throw new UserDataNotFoundException("El atributo clave es obligatorio");
         }

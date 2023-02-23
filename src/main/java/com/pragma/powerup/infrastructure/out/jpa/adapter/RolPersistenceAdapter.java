@@ -24,7 +24,7 @@ public class RolPersistenceAdapter implements RolPersistencePort {
         Optional<RolEntity> rol = rolRepository.findById(id);
         if (rol.isPresent()) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
@@ -40,6 +40,15 @@ public class RolPersistenceAdapter implements RolPersistencePort {
         return RolEntityMapper.rolEntityToRol(rol.get());
 
 
+    }
+
+    @Override
+    public RolEntity recuperarRolPorCodigo(String codigo) {
+        Optional<RolEntity> rolEntity = rolRepository.buscarRolPorCodigo(codigo);
+        if (!rolEntity.isPresent()) {
+            throw new NoValidRolException("El Codigo del  " + codigo + " no existe.");
+        }
+        return rolEntity.get();
     }
 
 }

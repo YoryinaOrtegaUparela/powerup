@@ -6,6 +6,7 @@ import com.pragma.powerup.application.handler.UsuarioHandler;
 import com.pragma.powerup.application.mapper.UsuarioRequestMapper;
 import com.pragma.powerup.application.mapper.UsuarioResponseMapper;
 import com.pragma.powerup.domain.api.UsuarioServicePort;
+import com.pragma.powerup.domain.model.Rol;
 import com.pragma.powerup.domain.model.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,7 @@ public class UsuarioHandlerImpl implements UsuarioHandler {
         UsuarioResponseDto usuarioResponseDto = usuarioResponseMapper.usuarioToUsuarioResponseDto(usuarioCreado);
         return usuarioResponseDto;
     }
+
 
     @Override
     public UsuarioResponseDto recuperarUsuarioPorId(Long idUsuario) {

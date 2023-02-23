@@ -9,4 +9,6 @@ public interface UsuarioPersistencePort {
     public Usuario guardarUsuario(Usuario usuarioNuevo);
 
     public Usuario recuperarUsuarioPorId(Long idUsuario);
+
+    Usuario findBycorreo(String correo);
 }

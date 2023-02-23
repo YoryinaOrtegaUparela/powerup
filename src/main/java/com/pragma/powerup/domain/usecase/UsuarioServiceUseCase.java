@@ -31,17 +31,11 @@ public class UsuarioServiceUseCase implements UsuarioServicePort {
 
         //validar que los datos de un Usuario estan correctos
         UsuarioDataValidator.validarUsuario(nuevoUsuario);
-        //Validar que sea un rol valido el que llega
-        boolean rolExiste = rolServicePort.validateExistRol(nuevoUsuario.getIdRol());
-        if (!rolExiste) {
-            throw new NoValidRolException("El IdRol " + nuevoUsuario.getIdRol() + " no existe.");
-        }
         //Encriptar la contraseña
         encriptarContrasenaUsuario(nuevoUsuario);
         //Persistir usuario
         Usuario usuario = usuarioPersistencePort.guardarUsuario(nuevoUsuario);
-        Rol rol = rolServicePort.recuperarRolPorIdRol(usuario.getIdRol());
-        usuario.setRol(rol);
+
 
         return usuario;
     }
@@ -49,8 +43,6 @@ public class UsuarioServiceUseCase implements UsuarioServicePort {
     @Override
     public Usuario recuperarUsuarioPorId(Long idUsuario) {
         Usuario usuario = usuarioPersistencePort.recuperarUsuarioPorId(idUsuario);
-        Rol rol = rolServicePort.recuperarRolPorIdRol(usuario.getIdRol());
-        usuario.setRol(rol);
         return usuario;
     }
 

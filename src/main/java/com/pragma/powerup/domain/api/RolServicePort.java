@@ -13,4 +13,6 @@ public interface RolServicePort {
 
     public Rol recuperarRolPorIdRol(Long idRol);
 
+    public Long recuperaridRolPorcodigo(String codigo);
+
 }

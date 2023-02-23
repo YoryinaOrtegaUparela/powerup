@@ -23,4 +23,9 @@ public class RolServiceUseCase implements RolServicePort {
     public Rol recuperarRolPorIdRol(Long idRol) {
         return rolPersistencePort.recuperarRolPorIdRol(idRol);
     }
+
+    @Override
+    public Long recuperaridRolPorcodigo(String codigo) {
+        return rolPersistencePort.recuperarRolPorCodigo(codigo).getId();
+    }
 }

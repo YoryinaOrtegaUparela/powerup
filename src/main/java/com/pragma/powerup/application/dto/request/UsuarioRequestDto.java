@@ -1,5 +1,7 @@
 package com.pragma.powerup.application.dto.request;
 
+import com.pragma.powerup.domain.model.Rol;
+
 /**
  * Clase que define la estructura que debe tener la petición de Usuarios
  */
@@ -20,6 +22,7 @@ public class UsuarioRequestDto {
 
     private Long idRol;
 
+    private Rol rol;
 
     public String getCorreo() {
         return correo;
@@ -34,7 +37,7 @@ public class UsuarioRequestDto {
     }
 
     public void setCelular(String celular) {
-        this.celular=celular;
+        this.celular = celular;
     }
 
     public String getNombre() {
@@ -75,5 +78,13 @@ public class UsuarioRequestDto {
 
     public void setIdRol(Long idRol) {
         this.idRol = idRol;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

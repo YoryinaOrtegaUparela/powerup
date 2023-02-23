@@ -3,8 +3,10 @@ package com.pragma.powerup.infrastructure.exceptionhandler;
 import com.pragma.powerup.domain.exception.UserDataNotFoundException;
 import com.pragma.powerup.domain.exception.NoValidRolException;
 import com.pragma.powerup.domain.exception.UserNotValidStructureException;
+import com.pragma.powerup.infrastructure.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

@@ -27,7 +27,7 @@ public class BeanConfiguration {
 
     @Bean
     public UsuarioPersistencePort usuarioPersistencePort() {
-        return new UsuarioPersistenceAdapter(usuarioEntityMapper, usuarioRepository);
+        return new UsuarioPersistenceAdapter(usuarioEntityMapper, usuarioRepository,rolServicePort());
     }
 
     @Bean
