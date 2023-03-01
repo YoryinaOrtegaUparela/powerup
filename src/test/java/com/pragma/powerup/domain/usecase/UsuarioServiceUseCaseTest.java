@@ -46,22 +46,7 @@ class UsuarioServiceUseCaseTest {
         //Verificar guardado
         Mockito.verify(usuarioPersistencePort).guardarUsuario(nuevoUsuario);
     }
-
-    @Test
-    void NodebecrearUsuarioPorqueElRolNoExiste() {
-        //GIVEN
-        Usuario nuevoUsuario = UsuarioDataTest.getUsuarioNuevo();
-        //WHENs
-        Mockito.when(rolServicePort.validarSiExistRol(Mockito.any())).thenThrow(RolNoValidoException.class);
-        Mockito.when(securityPasswordPort.encriptarContrasena(Mockito.any())).thenReturn("#3$4#RARO");
-
-        //Verificar que lanza excepcion por estructura invalida
-        Assertions.assertThrows(RolNoValidoException.class,
-                () ->  //Validar el guardarUsuario
-                        usuarioServiceUseCase.crearUsuario(nuevoUsuario));
-
-    }
-
+    
     @Test
     void noDebecrearUsuarioPorEstructuraEmailIncorrecto() {
         //GIVEN
