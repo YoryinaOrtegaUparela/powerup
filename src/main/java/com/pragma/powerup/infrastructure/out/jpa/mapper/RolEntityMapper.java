@@ -3,7 +3,6 @@ package com.pragma.powerup.infrastructure.out.jpa.mapper;
 import com.pragma.powerup.domain.model.Rol;
 import com.pragma.powerup.infrastructure.out.jpa.entity.RolEntity;
 
-
 public class RolEntityMapper {
 
     /*
@@ -13,6 +12,4 @@ public class RolEntityMapper {
         Rol rolbyCodigo = Rol.getRolbyCodigo(rol.getCodigo());
         return rolbyCodigo;
     }
-
-
 }

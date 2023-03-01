@@ -1,12 +1,10 @@
 package com.pragma.powerup.infrastructure.exceptionhandler;
 
-import com.pragma.powerup.domain.exception.UserDataNotFoundException;
-import com.pragma.powerup.domain.exception.NoValidRolException;
-import com.pragma.powerup.domain.exception.UserNotValidStructureException;
-import com.pragma.powerup.infrastructure.exception.UserNotFoundException;
+import com.pragma.powerup.domain.exception.InformacionUsuarioNoEncontradaFoundException;
+import com.pragma.powerup.domain.exception.RolNoValidoException;
+import com.pragma.powerup.domain.exception.EstructuraUsuarioNoValidaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -20,36 +18,36 @@ public class ControllerAdvisor {
     private static final String STATUS_CODE = "STATUS_CODE";
 
 
-    @ExceptionHandler(UserNotValidStructureException.class)
-    public ResponseEntity<Map<String, String>> handleValidationRequestException(
-            UserNotValidStructureException userNotValidStructureException) {
+    @ExceptionHandler(EstructuraUsuarioNoValidaException.class)
+    public ResponseEntity<Map<String, String>> handleEstructuraUsuarioNoValidaException(
+            EstructuraUsuarioNoValidaException estructuraUsuarioNoValidaException) {
 
         Map<String, String> stringStringMap = new HashMap<String, String>();
-        stringStringMap.put(ERROR, userNotValidStructureException.getMessage());
+        stringStringMap.put(ERROR, estructuraUsuarioNoValidaException.getMessage());
         stringStringMap.put(STATUS_CODE, HttpStatus.BAD_REQUEST.getReasonPhrase());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(stringStringMap);
     }
 
-    @ExceptionHandler(UserDataNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleValidationRequestException(
-            UserDataNotFoundException userDataNotFoundException) {
+    @ExceptionHandler(InformacionUsuarioNoEncontradaFoundException.class)
+    public ResponseEntity<Map<String, String>> handleInformacionUsuarioNoEncontradaFoundException(
+            InformacionUsuarioNoEncontradaFoundException informacionUsuarioNoEncontradaFoundException) {
 
         Map<String, String> stringStringMap = new HashMap<String, String>();
-        stringStringMap.put(ERROR, userDataNotFoundException.getMessage());
+        stringStringMap.put(ERROR, informacionUsuarioNoEncontradaFoundException.getMessage());
         stringStringMap.put(STATUS_CODE, HttpStatus.BAD_REQUEST.getReasonPhrase());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(stringStringMap);
     }
 
-    @ExceptionHandler(NoValidRolException.class)
-    public ResponseEntity<Map<String, String>> handleNoValidRolException(
-            NoValidRolException noValidRolException) {
+    @ExceptionHandler(RolNoValidoException.class)
+    public ResponseEntity<Map<String, String>> handleRolNoValidoException(
+            RolNoValidoException rolNoValidoException) {
 
         Map<String, String> stringStringMap = new HashMap<String, String>();
-        stringStringMap.put(ERROR, noValidRolException.getMessage());
+        stringStringMap.put(ERROR, rolNoValidoException.getMessage());
         stringStringMap.put(STATUS_CODE, HttpStatus.NOT_FOUND.getReasonPhrase());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND)

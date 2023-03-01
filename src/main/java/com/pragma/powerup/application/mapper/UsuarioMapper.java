@@ -10,8 +10,9 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
-public interface UsuarioResponseMapper {
+public interface UsuarioMapper {
 
-    UsuarioResponseDto usuarioToUsuarioResponseDto( Usuario usuario);
+    UsuarioResponseDto convertirUsuarioAUsuarioResponseDto(Usuario usuario);
+    Usuario convertirUsuarioRequestDtoAUsuario(UsuarioRequestDto usuarioRequestDto);
 
 }

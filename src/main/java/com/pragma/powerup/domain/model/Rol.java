@@ -1,6 +1,6 @@
 package com.pragma.powerup.domain.model;
 
-import com.pragma.powerup.domain.exception.NoValidRolException;
+import com.pragma.powerup.domain.exception.RolNoValidoException;
 
 public enum Rol {
     ADMINISTRADOR("rol administrador", "ADMIN"),
@@ -44,10 +44,8 @@ public enum Rol {
                 return CLIENTE;
             }
             default: {
-                throw new NoValidRolException("No existe un rol para el codigo:" + codigo);
+                throw new RolNoValidoException("No existe un rol para el codigo:" + codigo);
             }
-
-
         }
     }
 }

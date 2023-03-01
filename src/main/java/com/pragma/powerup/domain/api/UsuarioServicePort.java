@@ -7,8 +7,9 @@ Contrato que define la creación de usuarios
  */
 public interface UsuarioServicePort {
 
-    public Usuario crearUsuario(Usuario nuevoUsuario);
+    public Usuario crearUsuario(Usuario usuario);
 
     public Usuario recuperarUsuarioPorId(Long idUsuario);
 
+    Usuario validarUsuarioPorCorreo(String correo);
 }

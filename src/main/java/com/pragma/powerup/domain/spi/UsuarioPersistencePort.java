@@ -11,4 +11,5 @@ public interface UsuarioPersistencePort {
     public Usuario recuperarUsuarioPorId(Long idUsuario);
 
     Usuario findBycorreo(String correo);
+
 }

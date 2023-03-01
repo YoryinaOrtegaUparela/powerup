@@ -5,10 +5,8 @@ import com.pragma.powerup.domain.model.Rol;
 import com.pragma.powerup.domain.model.Usuario;
 import com.pragma.powerup.domain.spi.UsuarioPersistencePort;
 import com.pragma.powerup.infrastructure.exception.UserNotFoundException;
-import com.pragma.powerup.infrastructure.out.jpa.entity.RolEntity;
 import com.pragma.powerup.infrastructure.out.jpa.entity.UsuarioEntity;
 import com.pragma.powerup.infrastructure.out.jpa.mapper.UsuarioEntityMapper;
-import com.pragma.powerup.infrastructure.out.jpa.repository.RolRepository;
 import com.pragma.powerup.infrastructure.out.jpa.repository.UsuarioRepository;
 
 import java.util.Optional;
@@ -27,19 +25,19 @@ public class UsuarioPersistenceAdapter implements UsuarioPersistencePort {
     }
 
     @Override
-    public Usuario guardarUsuario(Usuario usuarioNuevo) {
+    public Usuario guardarUsuario(Usuario usuario) {
 
         //Consultamos Id de ROl para guardarcorrectamente la relacion
-        Long idRol = rolServicePort.recuperaridRolPorcodigo(usuarioNuevo.getRol().getCodigo());
-        usuarioNuevo.setIdRol(idRol);
+        Long idRol = rolServicePort.recuperarIdRolPorcodigo(usuario.getRol().getCodigo());
+        usuario.setIdRol(idRol);
 
-        UsuarioEntity usuarioConvertido = usuarioEntityMapper.usuarioToUsuarioEntity(usuarioNuevo);
+        UsuarioEntity usuarioEntity = usuarioEntityMapper.convertirUsuarioAUsuarioEntity(usuario);
 
-        UsuarioEntity usuarioCreadoEntity = usuarioRepository.save(usuarioConvertido);
+        UsuarioEntity usuarioCreadoEntity = usuarioRepository.save(usuarioEntity);
 
         //Seteo Id del usuario creado para devolver la respuesta con el id De DB
-        usuarioNuevo.setId(usuarioCreadoEntity.getId());
-        return usuarioNuevo;
+        usuario.setId(usuarioCreadoEntity.getId());
+        return usuario;
 
     }
 
@@ -49,13 +47,11 @@ public class UsuarioPersistenceAdapter implements UsuarioPersistencePort {
         if (!usuarioPorId.isPresent()) {
             throw new UserNotFoundException("El usuario para el id " + idUsuario + " no se encuentra registrado");
         }
-        Usuario usuario = usuarioEntityMapper.usuarioEntityToUsuario(usuarioPorId.get());
+        Usuario usuario = usuarioEntityMapper.convertirUsuarioEntityAUsuario(usuarioPorId.get());
         Rol rol = rolServicePort.recuperarRolPorIdRol(usuario.getIdRol());
         usuario.setRol(rol);
 
         return usuario;
-
-
     }
 
     @Override
@@ -64,12 +60,9 @@ public class UsuarioPersistenceAdapter implements UsuarioPersistencePort {
         if (!usuarioPorCorreo.isPresent()) {
             throw new UserNotFoundException("El usuario para el correo: " + correo + " no se encuentra registrado");
         }
-        Usuario usuario = usuarioEntityMapper.usuarioEntityToUsuario(usuarioPorCorreo.get());
+        Usuario usuario = usuarioEntityMapper.convertirUsuarioEntityAUsuario(usuarioPorCorreo.get());
         Rol rol = rolServicePort.recuperarRolPorIdRol(usuario.getIdRol());
         usuario.setRol(rol);
         return usuario;
-
     }
-
-
 }

@@ -3,10 +3,8 @@ package com.pragma.powerup.application.handler.impl;
 import com.pragma.powerup.application.dto.request.UsuarioRequestDto;
 import com.pragma.powerup.application.dto.response.UsuarioResponseDto;
 import com.pragma.powerup.application.handler.UsuarioHandler;
-import com.pragma.powerup.application.mapper.UsuarioRequestMapper;
-import com.pragma.powerup.application.mapper.UsuarioResponseMapper;
+import com.pragma.powerup.application.mapper.UsuarioMapper;
 import com.pragma.powerup.domain.api.UsuarioServicePort;
-import com.pragma.powerup.domain.model.Rol;
 import com.pragma.powerup.domain.model.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,36 +12,36 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class UsuarioHandlerImpl implements UsuarioHandler {
-
     private UsuarioServicePort usuarioServicePort;
-    private UsuarioRequestMapper usuarioRequestMapper;
-    private UsuarioResponseMapper usuarioResponseMapper;
+    private UsuarioMapper usuarioMapper;
 
-    public UsuarioHandlerImpl(UsuarioServicePort usuarioServicePort, UsuarioRequestMapper usuarioRequestMapper, UsuarioResponseMapper usuarioResponseMapper) {
+    public UsuarioHandlerImpl(UsuarioServicePort usuarioServicePort, UsuarioMapper usuarioMapper) {
         this.usuarioServicePort = usuarioServicePort;
-        this.usuarioRequestMapper = usuarioRequestMapper;
-        this.usuarioResponseMapper = usuarioResponseMapper;
+        this.usuarioMapper = usuarioMapper;
     }
 
     @Override
-    public UsuarioResponseDto guardarUsuario(UsuarioRequestDto usuarioRequestDto) {
-        //Mapeo
-        Usuario usuario = usuarioRequestMapper.usuarioRequestDtoToUsuario(usuarioRequestDto);
-        //Mando al Dominio a crear con las validaciones necesarias
-        Usuario usuarioCreado = usuarioServicePort.crearUsuario(usuario);
+    public UsuarioResponseDto crearUsuario(UsuarioRequestDto usuarioRequestDto) {
+        Usuario usuario = usuarioMapper.convertirUsuarioRequestDtoAUsuario(usuarioRequestDto);
+        Usuario usuarioCreado = usuarioServicePort.crearUsuario(usuario);//Mando al Dominio a crear con las validaciones necesarias
 
-        UsuarioResponseDto usuarioResponseDto = usuarioResponseMapper.usuarioToUsuarioResponseDto(usuarioCreado);
+        UsuarioResponseDto usuarioResponseDto = usuarioMapper.convertirUsuarioAUsuarioResponseDto(usuarioCreado);
         return usuarioResponseDto;
     }
-
 
     @Override
     public UsuarioResponseDto recuperarUsuarioPorId(Long idUsuario) {
         Usuario usuario = usuarioServicePort.recuperarUsuarioPorId(idUsuario);
-       return usuarioResponseMapper.usuarioToUsuarioResponseDto(usuario);
-
+       return usuarioMapper.convertirUsuarioAUsuarioResponseDto(usuario);
     }
 
+    @Override
+    public UsuarioResponseDto validarUsuarioPorCorreo(String correo) {
+        Usuario usuario = usuarioServicePort.validarUsuarioPorCorreo(correo);
+        UsuarioResponseDto usuarioResponseDto = usuarioMapper.convertirUsuarioAUsuarioResponseDto(usuario);
+        usuarioResponseDto.setCodigoRol(usuario.getCodigoRol());
+        return usuarioResponseDto;
+    }
 
 }
 

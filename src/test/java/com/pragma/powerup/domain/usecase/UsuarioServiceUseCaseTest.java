@@ -1,14 +1,13 @@
 package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.api.RolServicePort;
-import com.pragma.powerup.domain.exception.NoValidRolException;
-import com.pragma.powerup.domain.exception.UserDataNotFoundException;
-import com.pragma.powerup.domain.exception.UserNotValidStructureException;
+import com.pragma.powerup.domain.exception.RolNoValidoException;
+import com.pragma.powerup.domain.exception.InformacionUsuarioNoEncontradaFoundException;
+import com.pragma.powerup.domain.exception.EstructuraUsuarioNoValidaException;
 import com.pragma.powerup.domain.model.Usuario;
 import com.pragma.powerup.domain.spi.SecurityPasswordPort;
 import com.pragma.powerup.domain.spi.UsuarioPersistencePort;
 import com.pragma.powerup.domain.usecase.factory.UsuarioDataTest;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +37,7 @@ class UsuarioServiceUseCaseTest {
         //GIVEN
         Usuario nuevoUsuario = UsuarioDataTest.getUsuarioNuevo();
         //WHENs
-        Mockito.when(rolServicePort.validateExistRol(Mockito.any())).thenReturn(true);
+        Mockito.when(rolServicePort.validarSiExistRol(Mockito.any())).thenReturn(true);
         Mockito.when(securityPasswordPort.encriptarContrasena(Mockito.any())).thenReturn("#3$4#RARO");
 
 
@@ -53,11 +52,11 @@ class UsuarioServiceUseCaseTest {
         //GIVEN
         Usuario nuevoUsuario = UsuarioDataTest.getUsuarioNuevo();
         //WHENs
-        Mockito.when(rolServicePort.validateExistRol(Mockito.any())).thenThrow(NoValidRolException.class);
+        Mockito.when(rolServicePort.validarSiExistRol(Mockito.any())).thenThrow(RolNoValidoException.class);
         Mockito.when(securityPasswordPort.encriptarContrasena(Mockito.any())).thenReturn("#3$4#RARO");
 
         //Verificar que lanza excepcion por estructura invalida
-        Assertions.assertThrows(NoValidRolException.class,
+        Assertions.assertThrows(RolNoValidoException.class,
                 () ->  //Validar el guardarUsuario
                         usuarioServiceUseCase.crearUsuario(nuevoUsuario));
 
@@ -70,7 +69,7 @@ class UsuarioServiceUseCaseTest {
         // Usuario nuevoUsuario = UsuarioDataTest.getUsuarioNuevo();
 
         //Verificar que lanza excepcion por estructura invalida
-        Assertions.assertThrows(UserNotValidStructureException.class,
+        Assertions.assertThrows(EstructuraUsuarioNoValidaException.class,
                 () ->  //Validar el guardarUsuario
                         usuarioServiceUseCase.crearUsuario(nuevoUsuario));
     }
@@ -81,7 +80,7 @@ class UsuarioServiceUseCaseTest {
         Usuario nuevoUsuario = UsuarioDataTest.getUsuarioDatoFaltante();
 
         //Verificar guardado
-        Assertions.assertThrows(UserDataNotFoundException.class,
+        Assertions.assertThrows(InformacionUsuarioNoEncontradaFoundException.class,
                 () ->  //Validar el guardarUsuario
                         usuarioServiceUseCase.crearUsuario(nuevoUsuario));
     }
@@ -92,7 +91,7 @@ class UsuarioServiceUseCaseTest {
         Usuario nuevoUsuario = UsuarioDataTest.getUsuarioDocumentoIdentidadNoNumerico();
 
         //Verificar guardado
-        Assertions.assertThrows(UserNotValidStructureException.class,
+        Assertions.assertThrows(EstructuraUsuarioNoValidaException.class,
                 () ->  //Validar el guardarUsuario
                         usuarioServiceUseCase.crearUsuario(nuevoUsuario));
     }
@@ -103,7 +102,7 @@ class UsuarioServiceUseCaseTest {
         Usuario nuevoUsuario = UsuarioDataTest.getUsuarioTelefonoMaximoCaracteres();
 
         //Verificar guardado
-        Assertions.assertThrows(UserNotValidStructureException.class,
+        Assertions.assertThrows(EstructuraUsuarioNoValidaException.class,
                 () ->  //Validar el guardarUsuario
                         usuarioServiceUseCase.crearUsuario(nuevoUsuario));
     }

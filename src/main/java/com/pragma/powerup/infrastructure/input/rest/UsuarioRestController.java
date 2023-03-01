@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/api/v1/usuario")
 public class UsuarioRestController {
@@ -21,51 +19,52 @@ public class UsuarioRestController {
         this.usuarioHandler = usuarioHandler;
     }
 
-
-
-
-
     @Operation(description = "Permitir la Creacion de un propietario dentro del sistema")
     @ResponseStatus(code = HttpStatus.CREATED)
-    @PostMapping("/creaPropietario")
+    @PostMapping("/propietario")
     public ResponseEntity<UsuarioResponseDto> creaPropietario(@RequestBody UsuarioRequestDto usuarioRequestDto) {
 
         usuarioRequestDto.setRol(Rol.PROPIETARIO);
-        UsuarioResponseDto usuarioResponseDto = usuarioHandler.guardarUsuario(usuarioRequestDto);
+        UsuarioResponseDto usuarioResponseDto = usuarioHandler.crearUsuario(usuarioRequestDto);
         return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.CREATED);
-
     }
 
     @Operation(description = "Permitir la Creacion de un propietario dentro del sistema")
     @ResponseStatus(code = HttpStatus.CREATED)
-    @PostMapping("/crearEmpleado")
+    @PostMapping("/empleado")
     public ResponseEntity<UsuarioResponseDto> crearEmpleado(@RequestBody UsuarioRequestDto usuarioRequestDto) {
 
         usuarioRequestDto.setRol(Rol.EMPLEADO);
-        UsuarioResponseDto usuarioResponseDto = usuarioHandler.guardarUsuario(usuarioRequestDto);
+        UsuarioResponseDto usuarioResponseDto = usuarioHandler.crearUsuario(usuarioRequestDto);
         return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.CREATED);
-
     }
 
     @Operation(description = "Permitir la Creacion de un propietario dentro del sistema")
     @ResponseStatus(code = HttpStatus.CREATED)
-    @PostMapping("/crearCliente")
+    @PostMapping("/cliente")
     public ResponseEntity<UsuarioResponseDto> crearCliente(@RequestBody UsuarioRequestDto usuarioRequestDto) {
 
         usuarioRequestDto.setRol(Rol.CLIENTE);
-        UsuarioResponseDto usuarioResponseDto = usuarioHandler.guardarUsuario(usuarioRequestDto);
+        UsuarioResponseDto usuarioResponseDto = usuarioHandler.crearUsuario(usuarioRequestDto);
         return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.CREATED);
-
     }
 
-
-
     @Operation(description = "Retornar dato de id , rol y nombre para un Usuario ")
-    @GetMapping("/validarRolUsuario/{usuarioId}")
+    @ResponseStatus(code = HttpStatus.OK)
+    @GetMapping("/validaRolUsuario/{usuarioId}")
     public ResponseEntity<UsuarioResponseDto> validarRolUsuario(@PathVariable("usuarioId") Long usuarioId) {
         UsuarioResponseDto usuarioResponseDto = usuarioHandler.recuperarUsuarioPorId(usuarioId);
 
         return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.OK);
+    }
 
+    @Operation(description = "Atiende petición del microservicio Plazoleta para verificar las credenciales " +
+            "de un usuario y retorna los datos confirmados de nombre, rol, codigo del rol, correo y clave")
+    @ResponseStatus(code = HttpStatus.OK)
+    @PostMapping("/validaUsuarioPorCorreo")
+    public ResponseEntity<UsuarioResponseDto> validarUsuarioPorCorreo(@RequestBody UsuarioRequestDto usuarioRequestDto) {
+        UsuarioResponseDto usuarioResponseDto = usuarioHandler.validarUsuarioPorCorreo(usuarioRequestDto.getCorreo());
+
+        return new ResponseEntity<UsuarioResponseDto>(usuarioResponseDto, HttpStatus.OK);
     }
 }

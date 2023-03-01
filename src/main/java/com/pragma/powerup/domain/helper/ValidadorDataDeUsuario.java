@@ -1,8 +1,8 @@
 package com.pragma.powerup.domain.helper;
 
-import com.pragma.powerup.domain.exception.UserDataNotFoundException;
+import com.pragma.powerup.domain.exception.InformacionUsuarioNoEncontradaFoundException;
 import com.pragma.powerup.domain.model.Usuario;
-import com.pragma.powerup.domain.exception.UserNotValidStructureException;
+import com.pragma.powerup.domain.exception.EstructuraUsuarioNoValidaException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Realizar validaciones sobre usuarios segun la necesidad
  */
-public class UsuarioDataValidator {
+public class ValidadorDataDeUsuario {
 
     /**
      * Verificar los datos de usuario, en caso de no cumplir las reglas definidas lanzará exception
@@ -47,17 +47,17 @@ public class UsuarioDataValidator {
      */
     private static void validarDataObligatoria(Usuario usuario) {
         if (isNull(usuario.getNombre())) {
-            throw new UserDataNotFoundException("El atributo nombre es obligatorio");
+            throw new InformacionUsuarioNoEncontradaFoundException("El atributo nombre es obligatorio");
         } else if (isNull(usuario.getApellido())) {
-            throw new UserDataNotFoundException("El atributo apellido es obligatorio");
+            throw new InformacionUsuarioNoEncontradaFoundException("El atributo apellido es obligatorio");
         } else if (isNull(usuario.getDocumentoIdentidad())) {
-            throw new UserDataNotFoundException("El atributo documento de Identidad es obligatorio");
+            throw new InformacionUsuarioNoEncontradaFoundException("El atributo documento de Identidad es obligatorio");
         } else if (isNull(usuario.getCelular())) {
-            throw new UserDataNotFoundException("El atributo celular es obligatorio");
+            throw new InformacionUsuarioNoEncontradaFoundException("El atributo celular es obligatorio");
         } else if (isNull(usuario.getCorreo())) {
-            throw new UserDataNotFoundException("El atributo correo es obligatorio");
+            throw new InformacionUsuarioNoEncontradaFoundException("El atributo correo es obligatorio");
         } else if (isNull(usuario.getClave())) {
-            throw new UserDataNotFoundException("El atributo clave es obligatorio");
+            throw new InformacionUsuarioNoEncontradaFoundException("El atributo clave es obligatorio");
         }
     }
 
@@ -74,7 +74,7 @@ public class UsuarioDataValidator {
         Matcher mather = pattern.matcher(correo);
         //Si no cumple con la expresion no es valido
         if (!mather.find()) {
-            throw new UserNotValidStructureException("El formato del correo no es valido");
+            throw new EstructuraUsuarioNoValidaException("El formato del correo no es valido");
         }
     }
 
@@ -97,7 +97,7 @@ public class UsuarioDataValidator {
      */
     private static void validarTamanoCelular(String celular) {
         if (celular.length() > 13) {
-            throw new UserNotValidStructureException("El número de caracteres del atributo celular es mayor a 13");
+            throw new EstructuraUsuarioNoValidaException("El número de caracteres del atributo celular es mayor a 13");
         }
     }
 
@@ -112,7 +112,7 @@ public class UsuarioDataValidator {
                 .compile("^\\+?\\d+$");
         Matcher mather = pattern.matcher(celular);
         if (!mather.find()) {
-            throw new UserNotValidStructureException("El atributo celular debe ser numerico y puede iniciar con +");
+            throw new EstructuraUsuarioNoValidaException("El atributo celular debe ser numerico y puede iniciar con +");
         }
     }
 
@@ -127,7 +127,7 @@ public class UsuarioDataValidator {
                 .compile("^\\d+$");
         Matcher mather = pattern.matcher(documentoIdentidad);
         if (!mather.find()) {
-            throw new UserNotValidStructureException("El atributo documentoIdentidad debe ser numerico");
+            throw new EstructuraUsuarioNoValidaException("El atributo documentoIdentidad debe ser numerico");
         }
     }
 

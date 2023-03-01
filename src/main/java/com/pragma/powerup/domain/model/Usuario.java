@@ -9,7 +9,6 @@ public class Usuario {
     private String documentoIdentidad;
     private String correo;
     private String clave;
-
     private Long idRol;
     private Rol rol;
 
@@ -98,5 +97,9 @@ public class Usuario {
 
     public void setIdRol(Long idRol) {
         this.idRol = idRol;
+    }
+
+    public String getCodigoRol(){
+        return this.getRol().getCodigo();
     }
 }

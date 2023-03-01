@@ -11,11 +11,8 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface UsuarioEntityMapper {
 
-    /*
-    Convierte un usuario a usuario entidad
-     */
-    UsuarioEntity usuarioToUsuarioEntity(Usuario usuario);
+    UsuarioEntity convertirUsuarioAUsuarioEntity(Usuario usuario);
 
-    Usuario  usuarioEntityToUsuario(UsuarioEntity usuarioEntity);
+    Usuario convertirUsuarioEntityAUsuario(UsuarioEntity usuarioEntity);
 
 }

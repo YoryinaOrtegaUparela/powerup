@@ -40,7 +40,6 @@ public class RolEntity {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
     public String getCodigo() {
         return codigo;
     }

@@ -2,7 +2,6 @@ package com.pragma.powerup.infrastructure.security;
 
 import com.pragma.powerup.domain.spi.SecurityPasswordPort;
 import com.pragma.powerup.infrastructure.security.impl.BcryptSecurityPasswordPortImpl;
-import com.pragma.powerup.infrastructure.security.impl.CustomAuthenticationFailureHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +15,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @Configuration
 @AllArgsConstructor
 public class WebSecurityConfiguration {
-
-
 
     /**
      * Bean para Encodear Password
@@ -39,12 +36,6 @@ public class WebSecurityConfiguration {
     public SecurityPasswordPort securityPassword() {
         return new BcryptSecurityPasswordPortImpl(encoder());
     }
-
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new CustomAuthenticationFailureHandler();
-    }
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

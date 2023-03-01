@@ -1,7 +1,7 @@
 package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.spi.RolPersistencePort;
-import com.pragma.powerup.domain.exception.NoValidRolException;
+import com.pragma.powerup.domain.exception.RolNoValidoException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,18 +21,18 @@ class RolServiceUseCaseTest {
 
     @Test
     void debeValidarSiUnRolExiste() {
-        Mockito.when(rolPersistencePort.validateExistRol(Mockito.any())).thenReturn(true);
+        Mockito.when(rolPersistencePort.validarSiExisteRol(Mockito.any())).thenReturn(true);
 
-        assertTrue(rolServiceUseCase.validateExistRol(1L));
+        assertTrue(rolServiceUseCase.validarSiExistRol(1L));
 
     }
 
     @Test
     void debeValidarSiUnRolNoExiste() {
-        Mockito.when(rolPersistencePort.validateExistRol(Mockito.any())).thenThrow(NoValidRolException.class);
-        Assertions.assertThrows(NoValidRolException.class,
+        Mockito.when(rolPersistencePort.validarSiExisteRol(Mockito.any())).thenThrow(RolNoValidoException.class);
+        Assertions.assertThrows(RolNoValidoException.class,
                 () ->
-                        rolServiceUseCase.validateExistRol(1L));
+                        rolServiceUseCase.validarSiExistRol(1L));
 
     }
 }

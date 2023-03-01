@@ -2,9 +2,7 @@ package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.api.RolServicePort;
 import com.pragma.powerup.domain.api.UsuarioServicePort;
-import com.pragma.powerup.domain.exception.NoValidRolException;
-import com.pragma.powerup.domain.helper.UsuarioDataValidator;
-import com.pragma.powerup.domain.model.Rol;
+import com.pragma.powerup.domain.helper.ValidadorDataDeUsuario;
 import com.pragma.powerup.domain.model.Usuario;
 import com.pragma.powerup.domain.spi.SecurityPasswordPort;
 import com.pragma.powerup.domain.spi.UsuarioPersistencePort;
@@ -27,17 +25,16 @@ public class UsuarioServiceUseCase implements UsuarioServicePort {
     }
 
     @Override
-    public Usuario crearUsuario(Usuario nuevoUsuario) {
+    public Usuario crearUsuario(Usuario usuario) {
 
         //validar que los datos de un Usuario estan correctos
-        UsuarioDataValidator.validarUsuario(nuevoUsuario);
+        ValidadorDataDeUsuario.validarUsuario(usuario);
         //Encriptar la contraseña
-        encriptarContrasenaUsuario(nuevoUsuario);
+        encriptarContrasenaUsuario(usuario);
         //Persistir usuario
-        Usuario usuario = usuarioPersistencePort.guardarUsuario(nuevoUsuario);
+        Usuario usuarioCreado = usuarioPersistencePort.guardarUsuario(usuario);
 
-
-        return usuario;
+        return usuarioCreado;
     }
 
     @Override
@@ -46,10 +43,13 @@ public class UsuarioServiceUseCase implements UsuarioServicePort {
         return usuario;
     }
 
+    @Override
+    public Usuario validarUsuarioPorCorreo(String correo) {
+        Usuario usuario = usuarioPersistencePort.findBycorreo(correo);
+        return usuario;
+    }
 
     private void encriptarContrasenaUsuario(Usuario usuario) {
         usuario.setClave(securityPasswordPort.encriptarContrasena(usuario.getClave()));
     }
-
-
 }

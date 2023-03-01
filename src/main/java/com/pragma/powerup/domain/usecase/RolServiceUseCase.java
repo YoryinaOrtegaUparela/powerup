@@ -2,9 +2,8 @@ package com.pragma.powerup.domain.usecase;
 
 import com.pragma.powerup.domain.api.RolServicePort;
 import com.pragma.powerup.domain.model.Rol;
-import com.pragma.powerup.domain.model.Usuario;
 import com.pragma.powerup.domain.spi.RolPersistencePort;
-import com.pragma.powerup.domain.exception.NoValidRolException;
+import com.pragma.powerup.domain.exception.RolNoValidoException;
 
 public class RolServiceUseCase implements RolServicePort {
 
@@ -15,8 +14,8 @@ public class RolServiceUseCase implements RolServicePort {
     }
 
     @Override
-    public boolean validateExistRol(Long id) throws NoValidRolException {
-        return rolPersistencePort.validateExistRol(id);
+    public boolean validarSiExistRol(Long id) throws RolNoValidoException {
+        return rolPersistencePort.validarSiExisteRol(id);
     }
 
     @Override
@@ -25,7 +24,7 @@ public class RolServiceUseCase implements RolServicePort {
     }
 
     @Override
-    public Long recuperaridRolPorcodigo(String codigo) {
+    public Long recuperarIdRolPorcodigo(String codigo) {
         return rolPersistencePort.recuperarRolPorCodigo(codigo).getId();
     }
 }
