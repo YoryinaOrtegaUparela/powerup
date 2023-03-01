@@ -56,7 +56,7 @@ class UsuarioRestControllerTest {
 
         when(usuarioHandler.crearUsuario(Mockito.any())).thenReturn(usuarioResponseDto);
 
-        this.mockMvc.perform(post("/api/v1/usuario/creaPropietario").content(request)
+        this.mockMvc.perform(post("/api/v1/usuario/propietario").content(request)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
@@ -78,7 +78,7 @@ class UsuarioRestControllerTest {
 
         when(usuarioHandler.crearUsuario(Mockito.any())).thenThrow(EstructuraUsuarioNoValidaException.class);
 
-        this.mockMvc.perform(post("/api/v1/usuario/creaPropietario").content(request)
+        this.mockMvc.perform(post("/api/v1/usuario/propietario").content(request)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
@@ -100,7 +100,7 @@ class UsuarioRestControllerTest {
 
         when(usuarioHandler.crearUsuario(Mockito.any())).thenReturn(usuarioResponseDto);
 
-        this.mockMvc.perform(post("/api/v1/usuario/crearEmpleado").content(request)
+        this.mockMvc.perform(post("/api/v1/usuario/empleado").content(request)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
@@ -122,7 +122,7 @@ class UsuarioRestControllerTest {
 
         when(usuarioHandler.crearUsuario(Mockito.any())).thenReturn(usuarioResponseDto);
 
-        this.mockMvc.perform(post("/api/v1/usuario/crearCliente").content(request)
+        this.mockMvc.perform(post("/api/v1/usuario/cliente").content(request)
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
@@ -142,7 +142,7 @@ class UsuarioRestControllerTest {
 
         when(usuarioHandler.recuperarUsuarioPorId(2L)).thenReturn(usuarioResponseDto);
 
-        this.mockMvc.perform(get("/api/v1/usuario/validarRolUsuario/{usuarioId}", 2L))
+        this.mockMvc.perform(get("/api/v1/usuario/validaRolUsuario/{usuarioId}", 2L))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(response)));
