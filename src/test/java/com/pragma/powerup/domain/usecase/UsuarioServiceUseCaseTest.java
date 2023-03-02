@@ -46,7 +46,7 @@ class UsuarioServiceUseCaseTest {
         //Verificar guardado
         Mockito.verify(usuarioPersistencePort).guardarUsuario(nuevoUsuario);
     }
-    
+
     @Test
     void noDebecrearUsuarioPorEstructuraEmailIncorrecto() {
         //GIVEN
